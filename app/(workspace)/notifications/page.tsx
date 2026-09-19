@@ -1,0 +1,1 @@
+import EntityPanel from '@/components/EntityPanel'; export default function Notifications(){return <><div className="page-head"><div><h1>Notifications</h1><p>Application notification state. Power Automate can be connected for delivery; database remains the state authority.</p></div></div><EntityPanel entity="notifications"/></>}

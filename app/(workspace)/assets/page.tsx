@@ -1,0 +1,1 @@
+import EntityPanel from '@/components/EntityPanel'; export default function Assets(){return <><div className="page-head"><div><h1>Assets</h1><p>Asset register and assignments linked to resources/projects.</p></div></div><EntityPanel entity="assets"/><div style={{height:12}}/><EntityPanel entity="asset_assignments"/></>}

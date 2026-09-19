@@ -1,0 +1,2 @@
+import EntityPanel from '@/components/EntityPanel';
+export default function External(){return <><div className="page-head"><div><h1>External Resources & PO Readiness</h1><p>Vendors/partners/freelancers are first-class resources. PO readiness is insight-only; no automatic PO creation.</p></div></div><div className="grid" style={{gap:12}}><EntityPanel entity="external_organizations"/><EntityPanel entity="external_resources"/><EntityPanel entity="external_resource_contracts"/><EntityPanel entity="po_readiness"/></div></>}

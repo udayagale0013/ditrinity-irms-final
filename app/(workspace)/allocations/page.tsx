@@ -1,0 +1,2 @@
+import EntityPanel from '@/components/EntityPanel';
+export default function Allocations(){return <><div className="page-head"><div><h1>Allocation Management</h1><p>Concurrent allocations, percentage, dates, role, rates and audited changes.</p></div></div><div className="grid" style={{gap:12}}><EntityPanel entity="allocations"/><EntityPanel entity="allocation_history"/><EntityPanel entity="capacity_snapshots"/></div></>}

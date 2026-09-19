@@ -1,0 +1,4 @@
+'use client';
+import {useEffect,useRef} from 'react';
+import {models,service} from 'powerbi-client';
+export default function PowerBIReport({config}:{config:any}){const ref=useRef<HTMLDivElement>(null);useEffect(()=>{if(!ref.current||!config?.embedToken)return;const svc=new service.Service(service.factories.hpmFactory,service.factories.wpmpFactory,service.factories.routerFactory);const embedConfig={type:'report',id:config.reportId,embedUrl:config.embedUrl,accessToken:config.embedToken,tokenType:models.TokenType.Embed,permissions:models.Permissions.Read,settings:{panes:{filters:{visible:false},pageNavigation:{visible:true}},background:models.BackgroundType.Transparent}};const report=svc.embed(ref.current,embedConfig as any);return()=>{svc.reset(ref.current!);report?.off?.('loaded')}} , [config]);return <div ref={ref} style={{height:'760px',width:'100%',borderRadius:10,overflow:'hidden',background:'#f8fafc'}}/>}

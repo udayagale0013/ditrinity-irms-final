@@ -1,0 +1,2 @@
+import EntityPanel from '@/components/EntityPanel';
+export default function Requirements(){return <><div className="page-head"><div><h1>Requirement Intake</h1><p>AM / COE demand intake with skills, certainty, timing and allocation needs.</p></div></div><div className="grid" style={{gap:12}}><EntityPanel entity="accounts" title="Accounts"/><EntityPanel entity="projects" title="Projects"/><EntityPanel entity="requirements" title="Requirements"/><EntityPanel entity="requirement_skills" title="Requirement Skills"/></div></>}

@@ -1,0 +1,1 @@
+import EntityPanel from '@/components/EntityPanel'; export default function Audit(){return <><div className="page-head"><div><h1>Audit Trail</h1><p>Append-only business action history. Protected transitions write before/after values.</p></div></div><EntityPanel entity="audit_events"/></>}

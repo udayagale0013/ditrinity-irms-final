@@ -1,0 +1,6 @@
+import pg from 'pg';
+const {Pool}=pg;
+const args=Object.fromEntries(process.argv.slice(2).reduce((a,x,i,arr)=>{if(x.startsWith('--'))a[x.slice(2)]=arr[i+1];return a},{}));
+const email=args.email||process.env.DEV_AUTH_EMAIL;if(!email){console.error('Usage: npm run bootstrap:admin -- --email admin@ditrinity.com --name "Admin User"');process.exit(1)}
+const name=args.name||email.split('@')[0];const pool=new Pool({connectionString:process.env.DATABASE_URL,ssl:process.env.DATABASE_URL?.includes('sslmode=require')?{rejectUnauthorized:false}:undefined});
+try{const c=await pool.connect();try{await c.query('BEGIN');const r=await c.query(`INSERT INTO roles(name,description) VALUES('ADMIN','Full IRMS administration') ON CONFLICT(name) DO UPDATE SET description=EXCLUDED.description RETURNING id`);const u=await c.query(`INSERT INTO users(email,name,status) VALUES($1,$2,'ACTIVE') ON CONFLICT(email) DO UPDATE SET name=EXCLUDED.name,status='ACTIVE' RETURNING id`,[email,name]);await c.query(`INSERT INTO user_roles(user_id,role_id) VALUES($1,$2) ON CONFLICT DO NOTHING`,[u.rows[0].id,r.rows[0].id]);await c.query('COMMIT');console.log(`Admin bootstrapped: ${email}`)}catch(e){await c.query('ROLLBACK');throw e}finally{c.release()}}finally{await pool.end()}

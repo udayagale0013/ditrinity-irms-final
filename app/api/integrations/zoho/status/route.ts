@@ -1,0 +1,1 @@
+export async function GET(){return Response.json({ok:true,configured:!!process.env.ZOHO_ACCESS_TOKEN,baseUrl:process.env.ZOHO_BASE_URL||null,aiConfigured:!!(process.env.AI_API_URL&&process.env.AI_API_KEY),message:process.env.ZOHO_ACCESS_TOKEN?'Zoho credentials configured':'Zoho access not configured; use the real-payload test adapter or add OAuth credentials.'})}
