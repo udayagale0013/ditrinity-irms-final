@@ -241,7 +241,9 @@ export async function POST(
   }
 
   const body = await req.json();
-
+if (entity === 'requirements') {
+  delete body.status;
+}
   /*
    * -------------------------------------------------------
    * Protected fields
@@ -251,32 +253,34 @@ export async function POST(
    * -------------------------------------------------------
    */
 
-  if (entity !== 'timesheets') {
-    const blocked = (
-      PROTECTED_FIELDS[entity] || []
-    ).filter((k) =>
-      Object.prototype.hasOwnProperty.call(
-        body,
-        k
-      )
-    );
 
-    if (blocked.length) {
-      return Response.json(
-        {
-          ok: false,
-          error: {
-            code: 'PROTECTED_STATE',
-            message:
-              `Protected fields ${blocked.join(
-                ', '
-              )} must be changed through their workflow API.`,
-          },
+
+if (entity !== 'timesheets') {
+  const blocked = (
+    PROTECTED_FIELDS[entity] || []
+  ).filter((k) =>
+    Object.prototype.hasOwnProperty.call(
+      body,
+      k
+    )
+  );
+
+  if (blocked.length) {
+    return Response.json(
+      {
+        ok: false,
+        error: {
+          code: 'PROTECTED_STATE',
+          message:
+            `Protected fields ${blocked.join(
+              ', '
+            )} must be changed through their workflow API.`,
         },
-        { status: 403 }
-      );
-    }
+      },
+      { status: 403 }
+    );
   }
+}
 
   /*
    * -------------------------------------------------------
